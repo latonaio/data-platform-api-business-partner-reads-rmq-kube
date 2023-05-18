@@ -30,6 +30,10 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				general = c.General(mtx, input, output, errs, log)
 			}()
+		case "Generals-all":
+			func() {
+				generals = c.GeneralsAll(mtx, input, output, errs, log)
+			}()
 		case "Generals":
 			func() {
 				generals = c.Generals(mtx, input, output, errs, log)
@@ -68,6 +72,7 @@ func (c *DPFMAPICaller) General(
 	errs *[]error,
 	log *logger.Logger,
 ) *dpfm_api_output_formatter.General {
+	log.Info("General")
 	businessPartner := input.General.BusinessPartner
 
 	rows, err := c.db.Query(
@@ -97,6 +102,7 @@ func (c *DPFMAPICaller) Generals(
 	errs *[]error,
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.General {
+	log.Info("Generals")
 	var args []interface{}
 	businessPartners := input.Generals.BusinessPartners
 	cnt := 0
@@ -126,6 +132,32 @@ func (c *DPFMAPICaller) Generals(
 	return data
 }
 
+func (c *DPFMAPICaller) GeneralsAll(
+	mtx *sync.Mutex,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) *[]dpfm_api_output_formatter.General {
+	log.Info("Generals-all")
+	rows, err := c.db.Query(
+		`SELECT *
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_general_data
+		`)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+	defer rows.Close()
+
+	data, err := dpfm_api_output_formatter.ConvertToGenerals(rows)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+
+	return data
+}
 func (c *DPFMAPICaller) Role(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
