@@ -209,17 +209,17 @@ func (c *DPFMAPICaller) FinInst(
 
 	cnt := 0
 	for _, v := range finInst {
-		args = append(args, businessPartner, v.FinInstIdentification, v.ValidityEndDate, v.ValidityStartDate)
+		args = append(args, businessPartner, v.FinInstIdentification)
 		cnt++
 	}
 
 	repeat := strings.Repeat("(?,?,?,?),", cnt-1) + "(?,?,?,?)"
 	rows, err := c.db.Query(
-		`SELECT BusinessPartner, FinInstIdentification, ValidityEndDate, ValidityStartDate, FinInstCountry, FinInstCode, 
+		`SELECT BusinessPartner, FinInstIdentification, FinInstCountry, FinInstCode, 
 		FinInstBranchCode, FinInstFullCode, FinInstName, FinInstBranchName, SWIFTCode, InternalFinInstCustomerID, 
 		InternalFinInstAccountID, FinInstControlKey, FinInstAccountName, FinInstAccount, HouseBank, HouseBankAccount, IsMarkedForDeletion
-		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_general_fin_inst_data
-		WHERE (BusinessPartner, FinInstIdentification, ValidityEndDate, ValidityStartDate)IN ( `+repeat+` );`, args...,
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_fin_inst_data
+		WHERE (BusinessPartner, FinInstIdentification)IN ( `+repeat+` );`, args...,
 	)
 	if err != nil {
 		*errs = append(*errs, err)
