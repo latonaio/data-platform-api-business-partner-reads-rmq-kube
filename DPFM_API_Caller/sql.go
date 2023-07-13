@@ -4,6 +4,7 @@ import (
 	"context"
 	dpfm_api_input_reader "data-platform-api-business-partner-reads-rmq-kube/DPFM_API_Input_Reader"
 	dpfm_api_output_formatter "data-platform-api-business-partner-reads-rmq-kube/DPFM_API_Output_Formatter"
+	"fmt"
 	"strings"
 	"sync"
 
@@ -19,8 +20,7 @@ func (c *DPFMAPICaller) readSqlProcess(
 	errs *[]error,
 	log *logger.Logger,
 ) interface{} {
-	var general *dpfm_api_output_formatter.General
-	var generals *[]dpfm_api_output_formatter.General
+	var general *[]dpfm_api_output_formatter.General
 	var role *[]dpfm_api_output_formatter.Role
 	var finInst *[]dpfm_api_output_formatter.FinInst
 	var accounting *[]dpfm_api_output_formatter.Accounting
@@ -30,13 +30,13 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				general = c.General(mtx, input, output, errs, log)
 			}()
-		case "Generals-all":
-			func() {
-				generals = c.GeneralsAll(mtx, input, output, errs, log)
-			}()
 		case "Generals":
 			func() {
-				generals = c.Generals(mtx, input, output, errs, log)
+				general = c.Generals(mtx, input, output, errs, log)
+			}()
+		case "GeneralsByBusinessPartners":
+			func() {
+				general = c.GeneralsByBusinessPartners(mtx, input, output, errs, log)
 			}()
 		case "Role":
 			func() {
@@ -56,7 +56,6 @@ func (c *DPFMAPICaller) readSqlProcess(
 
 	data := &dpfm_api_output_formatter.Message{
 		General:    general,
-		Generals:   generals,
 		Role:       role,
 		FinInst:    finInst,
 		Accounting: accounting,
@@ -71,7 +70,7 @@ func (c *DPFMAPICaller) General(
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
-) *dpfm_api_output_formatter.General {
+) *[]dpfm_api_output_formatter.General {
 	log.Info("General")
 	businessPartner := input.General.BusinessPartner
 
@@ -102,20 +101,12 @@ func (c *DPFMAPICaller) Generals(
 	errs *[]error,
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.General {
-	log.Info("Generals")
-	var args []interface{}
-	businessPartners := input.Generals.BusinessPartners
-	cnt := 0
-	for _, v := range businessPartners {
-		args = append(args, v)
-		cnt++
-	}
-	repeat := strings.Repeat("?,", cnt-1) + "?"
+	isMarkedForDeletion := input.General.IsMarkedForDeletion
 
 	rows, err := c.db.Query(
 		`SELECT *
 		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_general_data
-		WHERE BusinessPartner IN ( `+repeat+` ) ;`, args...,
+		WHERE IsMarkedForDeletion = ?;`, isMarkedForDeletion,
 	)
 	if err != nil {
 		*errs = append(*errs, err)
@@ -123,7 +114,7 @@ func (c *DPFMAPICaller) Generals(
 	}
 	defer rows.Close()
 
-	data, err := dpfm_api_output_formatter.ConvertToGenerals(rows)
+	data, err := dpfm_api_output_formatter.ConvertToGeneral(rows)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil
@@ -132,25 +123,45 @@ func (c *DPFMAPICaller) Generals(
 	return data
 }
 
-func (c *DPFMAPICaller) GeneralsAll(
+func (c *DPFMAPICaller) GeneralsByBusinessPartners(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.General {
-	log.Info("Generals-all")
+	log.Info("GeneralsByBusinessPartners")
+	in := ""
+
+	for iGeneral, vGeneral := range input.Generals {
+		businessPartner := vGeneral.BusinessPartner
+		if iGeneral == 0 {
+			in = fmt.Sprintf(
+				"( '%d' )",
+				businessPartner,
+			)
+			continue
+		}
+		in = fmt.Sprintf(
+			"%s ,( '%d' )",
+			in,
+			businessPartner,
+		)
+	}
+
+	where := fmt.Sprintf(" WHERE ( BusinessPartner ) IN ( %s ) ", in)
 	rows, err := c.db.Query(
 		`SELECT *
 		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_general_data
-		`)
+		` + where + ` ;`,
+	)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil
 	}
 	defer rows.Close()
 
-	data, err := dpfm_api_output_formatter.ConvertToGenerals(rows)
+	data, err := dpfm_api_output_formatter.ConvertToGeneral(rows)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil
@@ -158,6 +169,7 @@ func (c *DPFMAPICaller) GeneralsAll(
 
 	return data
 }
+
 func (c *DPFMAPICaller) Role(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,

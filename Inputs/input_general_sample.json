@@ -5,64 +5,66 @@
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"api_status_code": 200,
 	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
-	"business_partner": null,
+	"business_partner": 101,
 	"service_label": "BUSINESS_PARTNER",
 	"api_type": "reads",
-	"BusinessPartnerGeneral": {
-		"BusinessPartner": 101,
+	"BusinessPartner": {
+		"BusinessPartner": 201,
 		"BusinessPartnerFullName": "",
 		"BusinessPartnerName": "",
-		"CreationDate": null,
-		"CreationTime": null,
 		"Industry": "",
 		"LegalEntityRegistration": "",
 		"Country": "",
 		"Language": "",
 		"Currency": "",
-		"LastChangeDate": null,
-		"LastChangeTime": null,
 		"OrganizationBPName1": "",
 		"OrganizationBPName2": "",
 		"OrganizationBPName3": "",
 		"OrganizationBPName4": "",
-		"BPGroup1": "",
-		"BPGroup2": "",
-		"BPGroup3": "",
-		"BPGroup4": "",
-		"BPGroup5": "",
-		"OrganizationFoundationDate": null,
-		"OrganizationLiquidationDate": null,
-		"SearchTerm1": "",
-		"SearchTerm2": "",
+		"BPTag1": "",
+		"BPTag2": "",
+		"BPTag3": "",
+		"BPTag4": "",
+		"OrganizationFoundationDate": "",
+		"OrganizationLiquidationDate": "",
 		"BusinessPartnerBirthplaceName": "",
-		"BusinessPartnerDeathDate": null,
-		"BusinessPartnerIsBlocked": null,
+		"BusinessPartnerDeathDate": "",
 		"GroupBusinessPartnerName1": "",
 		"GroupBusinessPartnerName2": "",
 		"AddressID": null,
 		"BusinessPartnerIDByExtSystem": "",
+		"BusinessPartnerIsBlocked": null,
+		"CreationDate": "",
+		"LastChangeDate": "",
 		"IsMarkedForDeletion": null,
-		"GeneralPDF": {
-			"DocType": "",
-			"DocVersionID": null,
-			"DocID": "",
-			"DocIssuerBusinessPartner": null,
-			"FileName": ""
-		},
+		"GeneralDoc": [
+			{
+				"DocType": "",
+				"DocVersionID": null,
+				"DocID": "",
+				"FileExtension": "",
+				"FileName": "",
+				"FilePath": "",
+				"DocIssuerBusinessPartner": null
+			}
+		],
 		"Role": [
 			{
 				"BusinessPartnerRole": "",
+				"ValidityStartDate": "",
 				"ValidityEndDate": "",
-				"ValidityStartDate": ""
+				"CreationDate": "",
+				"LastChangeDate": "",
+				"IsMarkedForDeletion": null
 			}
 		],
 		"FinInst": [
 			{
 				"FinInstIdentification": null,
-				"ValidityEndDate": "",
-				"ValidityStartDate": "",
 				"FinInstCountry": "",
-				"FinInstNumber": "",
+				"FinInstCode": "",
+				"FinInstBranchCode": "",
+				"FinInstFullCode": "",
 				"FinInstName": "",
 				"FinInstBranchName": "",
 				"SWIFTCode": "",
@@ -71,6 +73,10 @@
 				"FinInstControlKey": "",
 				"FinInstAccountName": "",
 				"FinInstAccount": "",
+				"HouseBank": "",
+				"HouseBankAccount": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
 				"IsMarkedForDeletion": null
 			}
 		],
@@ -78,6 +84,8 @@
 			{
 				"ChartOfAccounts": "",
 				"FiscalYearVariant": "",
+				"CreationDate": "",
+				"LastChangeDate": "",
 				"IsMarkedForDeletion": null
 			}
 		]
@@ -85,6 +93,5 @@
 	"api_schema": "DPFMBusinessPartnerReads",
 	"accepter": [
 		"General"
-	],
-	"deleted": false
+	]
 }

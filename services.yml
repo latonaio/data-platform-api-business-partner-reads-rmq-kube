@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: "RMQ_QUEUE_FROM"
-              value: "data-platform-api-business-partner-reads-general-queue"
+              value: "data-platform-api-business-partner-reads-queue"
             - name: "RMQ_QUEUE_TO_SQL"
               value: ""
             - name: "RMQ_QUEUE_TO_EX_CONF"

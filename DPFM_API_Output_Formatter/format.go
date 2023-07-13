@@ -6,97 +6,15 @@ import (
 	"fmt"
 )
 
-func ConvertToGeneral(rows *sql.Rows) (*General, error) {
-	defer rows.Close()
-	pm := &requests.General{}
-
-	i := 0
-	for rows.Next() {
-		i++
-		err := rows.Scan(
-			&pm.BusinessPartner,
-			&pm.BusinessPartnerFullName,
-			&pm.BusinessPartnerName,
-			&pm.Industry,
-			&pm.LegalEntityRegistration,
-			&pm.Country,
-			&pm.Language,
-			&pm.Currency,
-			&pm.OrganizationBPName1,
-			&pm.OrganizationBPName2,
-			&pm.OrganizationBPName3,
-			&pm.OrganizationBPName4,
-			&pm.BPTag1,
-			&pm.BPTag2,
-			&pm.BPTag3,
-			&pm.BPTag4,
-			&pm.OrganizationFoundationDate,
-			&pm.OrganizationLiquidationDate,
-			&pm.BusinessPartnerBirthplaceName,
-			&pm.BusinessPartnerDeathDate,
-			&pm.GroupBusinessPartnerName1,
-			&pm.GroupBusinessPartnerName2,
-			&pm.AddressID,
-			&pm.BusinessPartnerIDByExtSystem,
-			&pm.BusinessPartnerIsBlocked,
-			&pm.CreationDate,
-			&pm.LastChangeDate,
-			&pm.IsMarkedForDeletion,
-		)
-		if err != nil {
-			fmt.Printf("err = %+v \n", err)
-			return nil, err
-		}
-	}
-	if i == 0 {
-		fmt.Printf("DBに対象のレコードが存在しません。")
-		return nil, nil
-	}
-
-	data := pm
-	general := &General{
-		BusinessPartner:               data.BusinessPartner,
-		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		BusinessPartnerName:           data.BusinessPartnerName,
-		Industry:                      data.Industry,
-		LegalEntityRegistration:       data.LegalEntityRegistration,
-		Country:                       data.Country,
-		Language:                      data.Language,
-		Currency:                      data.Currency,
-		OrganizationBPName1:           data.OrganizationBPName1,
-		OrganizationBPName2:           data.OrganizationBPName2,
-		OrganizationBPName3:           data.OrganizationBPName3,
-		OrganizationBPName4:           data.OrganizationBPName4,
-		BPTag1:                        data.BPTag1,
-		BPTag2:                        data.BPTag2,
-		BPTag3:                        data.BPTag3,
-		BPTag4:                        data.BPTag4,
-		OrganizationFoundationDate:    data.OrganizationFoundationDate,
-		OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
-		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
-		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
-		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
-		AddressID:                     data.AddressID,
-		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
-		CreationDate:                  data.CreationDate,
-		LastChangeDate:                data.LastChangeDate,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
-	}
-
-	return general, nil
-}
-
-func ConvertToGenerals(rows *sql.Rows) (*[]General, error) {
+func ConvertToGeneral(rows *sql.Rows) (*[]General, error) {
 	defer rows.Close()
 	general := make([]General, 0)
 
 	i := 0
 	for rows.Next() {
-		i++
-		pm := General{}
+		pm := &requests.General{}
 
+		i++
 		err := rows.Scan(
 			&pm.BusinessPartner,
 			&pm.BusinessPartnerFullName,
@@ -134,34 +52,34 @@ func ConvertToGenerals(rows *sql.Rows) (*[]General, error) {
 
 		data := pm
 		general = append(general, General{
-		BusinessPartner:               data.BusinessPartner,
-		BusinessPartnerFullName:       data.BusinessPartnerFullName,
-		BusinessPartnerName:           data.BusinessPartnerName,
-		Industry:                      data.Industry,
-		LegalEntityRegistration:       data.LegalEntityRegistration,
-		Country:                       data.Country,
-		Language:                      data.Language,
-		Currency:                      data.Currency,
-		OrganizationBPName1:           data.OrganizationBPName1,
-		OrganizationBPName2:           data.OrganizationBPName2,
-		OrganizationBPName3:           data.OrganizationBPName3,
-		OrganizationBPName4:           data.OrganizationBPName4,
-		BPTag1:                        data.BPTag1,
-		BPTag2:                        data.BPTag2,
-		BPTag3:                        data.BPTag3,
-		BPTag4:                        data.BPTag4,
-		OrganizationFoundationDate:    data.OrganizationFoundationDate,
-		OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
-		BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
-		BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
-		GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
-		GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
-		AddressID:                     data.AddressID,
-		BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
-		BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
-		CreationDate:                  data.CreationDate,
-		LastChangeDate:                data.LastChangeDate,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
+			BusinessPartner:               data.BusinessPartner,
+			BusinessPartnerFullName:       data.BusinessPartnerFullName,
+			BusinessPartnerName:           data.BusinessPartnerName,
+			Industry:                      data.Industry,
+			LegalEntityRegistration:       data.LegalEntityRegistration,
+			Country:                       data.Country,
+			Language:                      data.Language,
+			Currency:                      data.Currency,
+			OrganizationBPName1:           data.OrganizationBPName1,
+			OrganizationBPName2:           data.OrganizationBPName2,
+			OrganizationBPName3:           data.OrganizationBPName3,
+			OrganizationBPName4:           data.OrganizationBPName4,
+			BPTag1:                        data.BPTag1,
+			BPTag2:                        data.BPTag2,
+			BPTag3:                        data.BPTag3,
+			BPTag4:                        data.BPTag4,
+			OrganizationFoundationDate:    data.OrganizationFoundationDate,
+			OrganizationLiquidationDate:   data.OrganizationLiquidationDate,
+			BusinessPartnerBirthplaceName: data.BusinessPartnerBirthplaceName,
+			BusinessPartnerDeathDate:      data.BusinessPartnerDeathDate,
+			GroupBusinessPartnerName1:     data.GroupBusinessPartnerName1,
+			GroupBusinessPartnerName2:     data.GroupBusinessPartnerName2,
+			AddressID:                     data.AddressID,
+			BusinessPartnerIDByExtSystem:  data.BusinessPartnerIDByExtSystem,
+			BusinessPartnerIsBlocked:      data.BusinessPartnerIsBlocked,
+			CreationDate:                  data.CreationDate,
+			LastChangeDate:                data.LastChangeDate,
+			IsMarkedForDeletion:           data.IsMarkedForDeletion,
 		})
 	}
 	if i == 0 {
@@ -247,8 +165,6 @@ func ConvertToFinInst(rows *sql.Rows) (*[]FinInst, error) {
 		finInst = append(finInst, FinInst{
 			BusinessPartner:           data.BusinessPartner,
 			FinInstIdentification:     data.FinInstIdentification,
-			ValidityEndDate:           data.ValidityEndDate,
-			ValidityStartDate:         data.ValidityStartDate,
 			FinInstCountry:            data.FinInstCountry,
 			FinInstCode:               data.FinInstCode,
 			FinInstBranchCode:         data.FinInstBranchCode,

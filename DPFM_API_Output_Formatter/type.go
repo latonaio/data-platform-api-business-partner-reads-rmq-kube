@@ -25,8 +25,7 @@ type SDC struct {
 }
 
 type Message struct {
-	General    *General      `json:"General"`
-	Generals   *[]General    `json:"Generals"`
+	General    *[]General    `json:"General"`
 	Role       *[]Role       `json:"Role"`
 	FinInst    *[]FinInst    `json:"FinInst"`
 	Accounting *[]Accounting `json:"Accounting"`
@@ -35,12 +34,12 @@ type Message struct {
 type General struct {
 	BusinessPartner               int     `json:"BusinessPartner"`
 	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           *string `json:"BusinessPartnerName"`
+	BusinessPartnerName           string  `json:"BusinessPartnerName"`
 	Industry                      *string `json:"Industry"`
 	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       *string `json:"Country"`
-	Language                      *string `json:"Language"`
-	Currency                      *string `json:"Currency"`
+	Country                       string  `json:"Country"`
+	Language                      string  `json:"Language"`
+	Currency                      string  `json:"Currency"`
 	OrganizationBPName1           *string `json:"OrganizationBPName1"`
 	OrganizationBPName2           *string `json:"OrganizationBPName2"`
 	OrganizationBPName3           *string `json:"OrganizationBPName3"`
@@ -58,8 +57,8 @@ type General struct {
 	AddressID                     *int    `json:"AddressID"`
 	BusinessPartnerIDByExtSystem  *string `json:"BusinessPartnerIDByExtSystem"`
 	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
-	CreationDate                  *string `json:"CreationDate"`
-	LastChangeDate                *string `json:"LastChangeDate"`
+	CreationDate                  string  `json:"CreationDate"`
+	LastChangeDate                string  `json:"LastChangeDate"`
 	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
 }
 

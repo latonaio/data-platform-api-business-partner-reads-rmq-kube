@@ -1,7 +1,7 @@
 # data-platform-api-business-partner-reads-rmq-kube
 
-data-platform-api-business-partner-reads-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API でビジネスパートナデータを登録するマイクロサービスです。  
-https://xxx.xxx.io/api/API_BUSINESS_PARTNER_GENERAL_SRV/creates/
+data-platform-api-business-partner-reads-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API でビジネスパートナデータを取得するマイクロサービスです。  
+https://xxx.xxx.io/api/API_BUSINESS_PARTNER_SRV/reads/
 
 ## 動作環境
 
@@ -13,13 +13,13 @@ data-platform-api-business-partner-reads-rmq-kube の動作環境は、次の通
 ## 本レポジトリ が 対応する API サービス
 data-platform-api-business-partner-reads-rmq-kube が対応する APIサービス は、次のものです。
 
-APIサービス URL: https://xxx.xxx.io/api/API_BUSINESS_PARTNER_GENERAL_SRV/reads/
+APIサービス URL: https://xxx.xxx.io/api/API_BUSINESS_PARTNER_SRV/reads/
 
 ## 本レポジトリ に 含まれる API名
 data-platform-api-business-partner-reads-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
-* A_General（データ連携基盤 ビジネスパートナ - 基本データ）
-* A_GeneralPDF（データ連携基盤 ビジネスパートナ - 基本PDFデータ）
+* A_General（データ連携基盤 ビジネスパートナ - 一般データ）
+* A_GeneralDoc（データ連携基盤 ビジネスパートナ - 一般文書データ）
 * A_Role（データ連携基盤 ビジネスパートナ - ロールデータ）
 * A_FinInst（データ連携基盤 ビジネスパートナ - 金融機関データ）
 * A_Accounting（データ連携基盤 ビジネスパートナ - 会計データ）
@@ -40,8 +40,6 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ```
 	"api_schema": "DPFMBusinessPartnerReads",
 	"accepter": ["General"],
-	"business_partner_id": null,
-	"deleted": false
 ```
   
 * 全データを取得する際のsample.jsonの記載例(2)  
@@ -51,8 +49,6 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ```
 	"api_schema": "DPFMBusinessPartnerReads",
 	"accepter": ["All"],
-	"business_partner_id": null,
-	"deleted": false
 ```
 
 ## 指定されたデータ種別のコール
@@ -61,7 +57,7 @@ accepter における データ種別 の指定に基づいて DPFM_API_Caller �
 caller.go の func() 毎 の 以下の箇所が、指定された API をコールするソースコードです。  
 
 ```
-func (c *DPFMAPICaller) AsyncBusinessPartnerGeneralReads(
+func (c *DPFMAPICaller) AsyncReads(
 	accepter []string,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
@@ -86,4 +82,3 @@ func (c *DPFMAPICaller) AsyncBusinessPartnerGeneralReads(
 ```
 XXX
 ```
-

@@ -54,56 +54,54 @@ type EC_MC struct {
 }
 
 type SDC struct {
-	ConnectionKey     string   `json:"connection_key"`
-	Result            bool     `json:"result"`
-	RedisKey          string   `json:"redis_key"`
-	Filepath          string   `json:"filepath"`
-	APIStatusCode     int      `json:"api_status_code"`
-	RuntimeSessionID  string   `json:"runtime_session_id"`
-	BusinessPartnerID *int     `json:"business_partner"`
-	ServiceLabel      string   `json:"service_label"`
-	APIType           string   `json:"APIType"`
-	General           General  `json:"BusinessPartner"`
-	APISchema         string   `json:"api_schema"`
-	Accepter          []string `json:"accepter"`
-	Deleted           bool     `json:"deleted"`
+	ConnectionKey     string    `json:"connection_key"`
+	Result            bool      `json:"result"`
+	RedisKey          string    `json:"redis_key"`
+	Filepath          string    `json:"filepath"`
+	APIStatusCode     int       `json:"api_status_code"`
+	RuntimeSessionID  string    `json:"runtime_session_id"`
+	BusinessPartnerID *int      `json:"business_partner"`
+	ServiceLabel      string    `json:"service_label"`
+	APIType           string    `json:"APIType"`
+	General           General   `json:"BusinessPartner"`
+	Generals          []General `json:"BusinessPartners"`
+	APISchema         string    `json:"api_schema"`
+	Accepter          []string  `json:"accepter"`
+	Deleted           bool      `json:"deleted"`
 }
 
 type General struct {
-	BusinessPartner               int     `json:"BusinessPartner"`
-	BusinessPartnerFullName       *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName           *string `json:"BusinessPartnerName"`
-	Industry                      *string `json:"Industry"`
-	LegalEntityRegistration       *string `json:"LegalEntityRegistration"`
-	Country                       *string `json:"Country"`
-	Language                      *string `json:"Language"`
-	Currency                      *string `json:"Currency"`
-	OrganizationBPName1           *string `json:"OrganizationBPName1"`
-	OrganizationBPName2           *string `json:"OrganizationBPName2"`
-	OrganizationBPName3           *string `json:"OrganizationBPName3"`
-	OrganizationBPName4           *string `json:"OrganizationBPName4"`
-	BPTag1                        *string `json:"BPTag1"`
-	BPTag2                        *string `json:"BPTag2"`
-	BPTag3                        *string `json:"BPTag3"`
-	BPTag4                        *string `json:"BPTag4"`
-	OrganizationFoundationDate    *string `json:"OrganizationFoundationDate"`
-	OrganizationLiquidationDate   *string `json:"OrganizationLiquidationDate"`
-	BusinessPartnerBirthplaceName *string `json:"BusinessPartnerBirthplaceName"`
-	BusinessPartnerDeathDate      *string `json:"BusinessPartnerDeathDate"`
-	GroupBusinessPartnerName1     *string `json:"GroupBusinessPartnerName1"`
-	GroupBusinessPartnerName2     *string `json:"GroupBusinessPartnerName2"`
-	AddressID                     *int    `json:"AddressID"`
-	BusinessPartnerIDByExtSystem  *string `json:"BusinessPartnerIDByExtSystem"`
-	BusinessPartnerIsBlocked      *bool   `json:"BusinessPartnerIsBlocked"`
-	CreationDate                  *string `json:"CreationDate"`
-	LastChangeDate                *string `json:"LastChangeDate"`
-	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
+	BusinessPartner               int          `json:"BusinessPartner"`
+	BusinessPartnerFullName       *string      `json:"BusinessPartnerFullName"`
+	BusinessPartnerName           *string      `json:"BusinessPartnerName"`
+	Industry                      *string      `json:"Industry"`
+	LegalEntityRegistration       *string      `json:"LegalEntityRegistration"`
+	Country                       *string      `json:"Country"`
+	Language                      *string      `json:"Language"`
+	Currency                      *string      `json:"Currency"`
+	OrganizationBPName1           *string      `json:"OrganizationBPName1"`
+	OrganizationBPName2           *string      `json:"OrganizationBPName2"`
+	OrganizationBPName3           *string      `json:"OrganizationBPName3"`
+	OrganizationBPName4           *string      `json:"OrganizationBPName4"`
+	BPTag1                        *string      `json:"BPTag1"`
+	BPTag2                        *string      `json:"BPTag2"`
+	BPTag3                        *string      `json:"BPTag3"`
+	BPTag4                        *string      `json:"BPTag4"`
+	OrganizationFoundationDate    *string      `json:"OrganizationFoundationDate"`
+	OrganizationLiquidationDate   *string      `json:"OrganizationLiquidationDate"`
+	BusinessPartnerBirthplaceName *string      `json:"BusinessPartnerBirthplaceName"`
+	BusinessPartnerDeathDate      *string      `json:"BusinessPartnerDeathDate"`
+	GroupBusinessPartnerName1     *string      `json:"GroupBusinessPartnerName1"`
+	GroupBusinessPartnerName2     *string      `json:"GroupBusinessPartnerName2"`
+	AddressID                     *int         `json:"AddressID"`
+	BusinessPartnerIDByExtSystem  *string      `json:"BusinessPartnerIDByExtSystem"`
+	BusinessPartnerIsBlocked      *bool        `json:"BusinessPartnerIsBlocked"`
+	CreationDate                  *string      `json:"CreationDate"`
+	LastChangeDate                *string      `json:"LastChangeDate"`
+	IsMarkedForDeletion           *bool        `json:"IsMarkedForDeletion"`
 	Role                          []Role       `json:"Role"`
 	FinInst                       []FinInst    `json:"FinInst"`
 	Accounting                    []Accounting `json:"Accounting"`
-}
-type Generals struct {
-	BusinessPartners []int `json:"BusinessPartners"`
 }
 
 type Role struct {
