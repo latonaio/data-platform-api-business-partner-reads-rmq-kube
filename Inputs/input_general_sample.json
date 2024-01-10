@@ -5,11 +5,44 @@
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"api_status_code": 200,
 	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
-	"business_partner": 101,
+	"business_partner": null,
 	"service_label": "BUSINESS_PARTNER",
 	"api_type": "reads",
+	"UsageControl": {
+		"UsageControlLess": null,
+		"Perpetual": null,
+		"Rental": null,
+		"Duration": null,
+		"DurationUnit": "",
+		"ValidityStartDate": "",
+		"ValidityStartTime": "",
+		"ValidityEndDate": "",
+		"ValidityEndTime": "",
+		"DeleteAfterValidityEnd": null,
+		"ServiceLabelRestriction": [],
+		"ApplicationRestriction": [],
+		"PurposeRestriction": [],
+		"BusinessPartnerRoleRestriction": [],
+		"LocationRestriction": {
+			"PostalCode": [],
+			"LocalSubRegion": [],
+			"LocalRegion": [],
+			"Country": [],
+			"GlobalRegion": [],
+			"TimeZone": []
+		},
+		"DataStateRestriction": [],
+		"NumberOfUsageRestriction": null,
+		"IPAddressRestriction": [],
+		"MACAddressRestriction": [],
+		"ModifyIsAllowed": null,
+		"LocalLoggingIsAllowed": null,
+		"RemoteNotificationIsAllowed": null,
+		"DestributeOnlyIfEncrypted": null,
+		"AttachPolicyWhenDestribute": null
+	},
 	"BusinessPartner": {
-		"BusinessPartner": 201,
+		"BusinessPartner": null,
 		"BusinessPartnerFullName": "",
 		"BusinessPartnerName": "",
 		"Industry": "",
@@ -34,6 +67,8 @@
 		"AddressID": null,
 		"BusinessPartnerIDByExtSystem": "",
 		"BusinessPartnerIsBlocked": null,
+		"CertificateAuthorityChain": "",
+		"UsageControlChain": "",
 		"CreationDate": "",
 		"LastChangeDate": "",
 		"IsMarkedForDeletion": null,
@@ -48,47 +83,41 @@
 				"DocIssuerBusinessPartner": null
 			}
 		],
-		"Role": [
-			{
-				"BusinessPartnerRole": "",
-				"ValidityStartDate": "",
-				"ValidityEndDate": "",
-				"CreationDate": "",
-				"LastChangeDate": "",
-				"IsMarkedForDeletion": null
-			}
-		],
-		"FinInst": [
-			{
-				"FinInstIdentification": null,
-				"FinInstCountry": "",
-				"FinInstCode": "",
-				"FinInstBranchCode": "",
-				"FinInstFullCode": "",
-				"FinInstName": "",
-				"FinInstBranchName": "",
-				"SWIFTCode": "",
-				"InternalFinInstCustomerID": null,
-				"InternalFinInstAccountID": null,
-				"FinInstControlKey": "",
-				"FinInstAccountName": "",
-				"FinInstAccount": "",
-				"HouseBank": "",
-				"HouseBankAccount": "",
-				"CreationDate": "",
-				"LastChangeDate": "",
-				"IsMarkedForDeletion": null
-			}
-		],
-		"Accounting": [
-			{
-				"ChartOfAccounts": "",
-				"FiscalYearVariant": "",
-				"CreationDate": "",
-				"LastChangeDate": "",
-				"IsMarkedForDeletion": null
-			}
-		]
+		"Role": {
+			"BusinessPartnerRole": "",
+			"ValidityStartDate": "",
+			"ValidityEndDate": "",
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		},
+		"FinInst": {
+			"FinInstIdentification": null,
+			"FinInstCountry": "",
+			"FinInstCode": "",
+			"FinInstBranchCode": "",
+			"FinInstFullCode": "",
+			"FinInstName": "",
+			"FinInstBranchName": "",
+			"SWIFTCode": "",
+			"InternalFinInstCustomerID": null,
+			"InternalFinInstAccountID": null,
+			"FinInstControlKey": "",
+			"FinInstAccountName": "",
+			"FinInstAccount": "",
+			"HouseBank": "",
+			"HouseBankAccount": "",
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		},
+		"Accounting": {
+			"ChartOfAccounts": "",
+			"FiscalYearVariant": "",
+			"CreationDate": "",
+			"LastChangeDate": "",
+			"IsMarkedForDeletion": null
+		}
 	},
 	"api_schema": "DPFMBusinessPartnerReads",
 	"accepter": [
