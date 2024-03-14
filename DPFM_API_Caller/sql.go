@@ -177,21 +177,12 @@ func (c *DPFMAPICaller) Role(
 	errs *[]error,
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.Role {
-	var args []interface{}
 	businessPartner := input.General.BusinessPartner
-	role := input.General.Role
 
-	cnt := 0
-	for _, v := range role {
-		args = append(args, businessPartner, v.BusinessPartnerRole, v.ValidityEndDate, v.ValidityStartDate)
-		cnt++
-	}
-
-	repeat := strings.Repeat("(?,?,?,?),", cnt-1) + "(?,?,?,?)"
 	rows, err := c.db.Query(
 		`SELECT BusinessPartner, BusinessPartnerRole, ValidityEndDate, ValidityStartDate
 		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_business_partner_role_data
-		WHERE (BusinessPartner, BusinessPartnerRole, ValidityEndDate, ValidityStartDate) IN ( `+repeat+` );`, args...,
+		WHERE BusinessPartner = ?;`, businessPartner,
 	)
 	if err != nil {
 		*errs = append(*errs, err)
